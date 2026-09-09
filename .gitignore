@@ -1,0 +1,11 @@
+node_modules
+.next
+.env.local
+*.local
+*.pem
+*.key
+*.crt
+.DS_Store
+.vercel
+.env*
+.next/
