@@ -143,7 +143,6 @@ const en = {
     facebook: "Facebook",
     instagram: "Instagram",
   },
-  },
   providerDetail: {
     about: "About",
     aboutFallback: "This provider has not added a description yet.",

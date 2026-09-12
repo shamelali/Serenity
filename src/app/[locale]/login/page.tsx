@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sparkles, Google, Facebook, Instagram } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button, Input, Label } from "@/components/ui/primitives";
 import { useToast } from "@/components/ui/toast";
 import { useDictionary, useLocalizedHref } from "@/lib/i18n/locale-context";
@@ -77,7 +77,6 @@ export default function LoginPage() {
                 }}
                 className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
               >
-                <Google className="h-4 w-4" />
                 <span>{dict.auth.google}</span>
               </Button>
               <Button
@@ -89,7 +88,6 @@ export default function LoginPage() {
                 }}
                 className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
               >
-                <Facebook className="h-4 w-4" />
                 <span>{dict.auth.facebook}</span>
               </Button>
               <Button
@@ -101,7 +99,6 @@ export default function LoginPage() {
                 }}
                 className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
               >
-                <Instagram className="h-4 w-4" />
                 <span>{dict.auth.instagram}</span>
               </Button>
             </div>
