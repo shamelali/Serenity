@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Google, Facebook, Instagram } from "lucide-react";
 import { Button, Input, Label } from "@/components/ui/primitives";
 import { useToast } from "@/components/ui/toast";
 import { useDictionary, useLocalizedHref } from "@/lib/i18n/locale-context";
@@ -63,20 +63,66 @@ export default function LoginPage() {
           <h1 className="text-2xl font-bold text-slate-900">{dict.auth.loginTitle}</h1>
           <p className="mt-1 text-sm text-slate-500">{dict.auth.loginSubtitle}</p>
 
-          <form onSubmit={onSubmit} className="mt-6 space-y-4">
-            <div>
-              <Label>{dict.auth.emailLabel}</Label>
-              <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold text-slate-900 mb-3">
+              {dict.auth.continueWith}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  window.location.href = `${buildHref("/api/auth/signin/google")}?callbackUrl=${encodeURIComponent(
+                    buildHref("/dashboard")
+                  )}`;
+                }}
+                className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
+              >
+                <Google className="h-4 w-4" />
+                <span>{dict.auth.google}</span>
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  window.location.href = `${buildHref("/api/auth/signin/facebook")}?callbackUrl=${encodeURIComponent(
+                    buildHref("/dashboard")
+                  )}`;
+                }}
+                className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
+              >
+                <Facebook className="h-4 w-4" />
+                <span>{dict.auth.facebook}</span>
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  window.location.href = `${buildHref("/api/auth/signin/instagram")}?callbackUrl=${encodeURIComponent(
+                    buildHref("/dashboard")
+                  )}`;
+                }}
+                className="w-24 h-10 flex items-center justify-center gap-2 text-sm"
+              >
+                <Instagram className="h-4 w-4" />
+                <span>{dict.auth.instagram}</span>
+              </Button>
             </div>
-            <div>
-              <Label>{dict.auth.passwordLabel}</Label>
-              <Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
-            </div>
-            {error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">{error}</p>}
-            <Button type="submit" loading={loading} className="w-full">
-              {dict.auth.signInButton}
-            </Button>
-          </form>
+          </div>
+
+          <div className="border-t pt-4 mt-6">
+            <form onSubmit={onSubmit} className="mt-4 space-y-4">
+              <div>
+                <Label>{dict.auth.emailLabel}</Label>
+                <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
+              </div>
+              <div>
+                <Label>{dict.auth.passwordLabel}</Label>
+                <Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
+              </div>
+              {error && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700">{error}</p>}
+              <Button type="submit" loading={loading} className="w-full">
+                {dict.auth.signInButton}
+              </Button>
+            </form>
+          </div>
 
           <div className="mt-6 rounded-xl bg-slate-50 p-4 text-xs text-slate-500">
             <p className="mb-2 font-semibold text-slate-600">{dict.auth.demoHint}</p>
