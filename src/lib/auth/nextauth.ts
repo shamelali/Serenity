@@ -1,19 +1,33 @@
-import betterAuth from "@/lib/better-auth";
+// Lazy — only creates the handler when a request hits this route
+let _handler: any = null;
 
-// Create a wrapper function to avoid direct import issues
-const createNextJsHandler = (authInstance: any) => {
-  // Dynamically require the Next.js integration
-  // @ts-ignore
-  const nextJsIntegration = require("better-auth/integrations/next-js");
-  return nextJsIntegration.toNextJsHandler(authInstance);
-};
+function getHandler() {
+  if (!_handler) {
+    const { getAuth } = require("@/lib/better-auth");
+    // @ts-ignore
+    const nextJsIntegration = require("better-auth/next-js");
+    _handler = nextJsIntegration.toNextJsHandler(getAuth());
+  }
+  return _handler;
+}
 
-// Create the better-auth instance (already exported from ./lib/better-auth)
-// Wrap it with the Next.js handler
-const { GET, POST, PATCH, PUT, DELETE, ...rest } = createNextJsHandler(betterAuth);
+export function GET(...args: any[]) {
+  return getHandler().GET(...args);
+}
+export function POST(...args: any[]) {
+  return getHandler().POST(...args);
+}
+export function PATCH(...args: any[]) {
+  return getHandler().PATCH(...args);
+}
+export function PUT(...args: any[]) {
+  return getHandler().PUT(...args);
+}
+export function DELETE(...args: any[]) {
+  return getHandler().DELETE(...args);
+}
 
-// Export the HTTP methods for Next.js App Router
-export { GET, POST, PATCH, PUT, DELETE };
-
-// Also export the auth object if needed for other usage
-export default betterAuth;
+export default function auth() {
+  const { getAuth } = require("@/lib/better-auth");
+  return getAuth();
+}
