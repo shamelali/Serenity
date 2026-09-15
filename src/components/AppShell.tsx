@@ -397,11 +397,8 @@ export function AppShell() {
               <Mountain className="h-6 w-6" />
             </div>
             <div className="min-w-0">
-              <h1 className="truncate text-sm font-black leading-tight tracking-tight md:text-base">SMART GUNUNG LAMBAK PILOT</h1>
-              <p className="truncate text-[10px] font-bold text-slate-500 dark:text-emerald-100/70">Duta Integra Solutions for MPK Kluang • MYR 2.8M optimum • 12 months</p>
+              <h1 className="truncate text-sm font-black leading-tight tracking-tight md:text-base">malim</h1>
               <div className="mt-1 hidden gap-1 md:flex">
-                <Pill tone="yellow">MYR 2.8M</Pill>
-                <Pill tone="green">ENTERPRISE</Pill>
                 <Pill tone="blue">UPTIME {data?.uptimePct ?? '99.92'}%</Pill>
               </div>
             </div>
