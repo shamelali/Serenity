@@ -52,8 +52,14 @@ export function LandingPage() {
 
   const handleEmailLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // For demo, treat email login as visitor access
-    login('visitor');
+    const matchedRole = Object.values(users).find(
+      (u) => u.email.toLowerCase() === email.toLowerCase()
+    );
+    if (matchedRole) {
+      login(matchedRole.role);
+    } else {
+      login('visitor');
+    }
   };
 
   return (
@@ -121,6 +127,10 @@ export function LandingPage() {
               Sign In
             </button>
           </form>
+
+          <p className="text-xs text-gray-400 text-center -mt-2 mb-4">
+            Try: admin@mpk.gov.my (Super Admin) · ranger.hafiz@mpk.gov.my (Ranger) · visitor@example.com (Visitor)
+          </p>
 
           {/* Demo Role Login */}
           <div className="border-t border-gray-100 pt-6">
