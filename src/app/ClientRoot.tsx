@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/components/auth';
 import { LandingPage } from '@/components/LandingPage';
+import { VisitorView } from '@/components/VisitorView';
 import { AppShell } from '@/components/AppShell';
 
 export function ClientRoot() {
@@ -9,6 +10,10 @@ export function ClientRoot() {
 
   if (user.role === 'visitor' && !user.mfa) {
     return <LandingPage />;
+  }
+
+  if (user.role === 'visitor') {
+    return <VisitorView />;
   }
 
   return <AppShell />;

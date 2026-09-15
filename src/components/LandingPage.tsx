@@ -326,6 +326,23 @@ export function LandingPage() {
           </div>
         </section>
 
+        {/* ─── VISITOR CTA ─── */}
+        <section className="max-w-6xl mx-auto px-4 pb-12">
+          <div className="max-w-3xl mx-auto">
+            <button
+              onClick={() => login('visitor')}
+              className="w-full flex items-center justify-center gap-4 bg-emerald-500 hover:bg-emerald-400 text-white font-black text-lg py-5 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-0.5"
+            >
+              <Footprints className="w-6 h-6" />
+              <span>Continue as Visitor</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <p className="text-center text-emerald-200/50 text-xs mt-3">
+              Explore trails, book facilities, and track your hike — no admin access
+            </p>
+          </div>
+        </section>
+
         {/* ─── FEATURES GRID ─── */}
         <section className="max-w-6xl mx-auto px-4 pb-12">
           <div className="text-center mb-8">
