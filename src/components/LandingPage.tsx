@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth, roleLabels, users, type AppRole } from '@/components/auth';
+import { useAuth, users, type AppRole } from '@/components/auth';
 import { Mountain, Shield, TreePine, Users, BarChart3, Lock, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
@@ -20,7 +20,7 @@ const socialProviders = [
   { name: 'TikTok', color: 'bg-black text-white hover:bg-gray-800', icon: () => (
     <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
   )},
-  { name: 'X (Twitter)', color: 'bg-black text-white hover:bg-gray-800', icon: () => (
+  { name: 'X', color: 'bg-black text-white hover:bg-gray-800', icon: () => (
     <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
   )},
 ];
@@ -35,11 +35,14 @@ const roleConfig: Record<AppRole, { icon: React.ReactNode; color: string; descri
   visitor: { icon: <MapPin className="w-5 h-5" />, color: 'bg-teal-600 hover:bg-teal-700', description: 'Browse trails & hike' },
 };
 
+type View = 'home' | 'login' | 'signup';
+
 export function LandingPage() {
   const { loginWithGoogle, loginWithFacebook, loginWithApple, loginWithInstagram, loginWithTikTok, loginWithX, login } = useAuth();
+  const [view, setView] = useState<View>('home');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showDemoPanel, setShowDemoPanel] = useState(false);
+  const [name, setName] = useState('');
 
   const socialHandlers: Record<string, () => void> = {
     Google: loginWithGoogle,
@@ -47,128 +50,188 @@ export function LandingPage() {
     Apple: loginWithApple,
     Instagram: loginWithInstagram,
     TikTok: loginWithTikTok,
-    'X (Twitter)': loginWithX,
+    X: loginWithX,
   };
 
-  const handleEmailLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const matchedRole = Object.values(users).find(
       (u) => u.email.toLowerCase() === email.toLowerCase()
     );
-    if (matchedRole) {
-      login(matchedRole.role);
-    } else {
-      login('visitor');
-    }
+    login(matchedRole ? matchedRole.role : 'visitor');
+  };
+
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    login('visitor');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900">
       <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12">
-        {/* Hero */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Mountain className="w-12 h-12 text-emerald-300" />
-            <h1 className="text-4xl font-bold text-white">Smart Gunung Lambak</h1>
-          </div>
-          <p className="text-emerald-200 text-lg max-w-md mx-auto">
-            Smart mountain management platform for hikers, rangers, and park operators.
-          </p>
-        </div>
 
-        {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Sign in to continue</h2>
-
-          {/* Social Login Buttons */}
-          <div className="space-y-3 mb-6">
-            {socialProviders.map((provider) => {
-              const Icon = provider.icon;
-              return (
-                <button
-                  key={provider.name}
-                  onClick={socialHandlers[provider.name]}
-                  className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${provider.color}`}
-                >
-                  <Icon />
-                  Continue with {provider.name}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 my-6">
-            <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-sm text-gray-400">or sign in with email</span>
-            <div className="flex-1 h-px bg-gray-200" />
-          </div>
-
-          {/* Email/Password Form */}
-          <form onSubmit={handleEmailLogin} className="space-y-4 mb-6">
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
-            />
-            <button
-              type="submit"
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors"
-            >
-              Sign In
-            </button>
-          </form>
-
-          <p className="text-xs text-gray-400 text-center -mt-2 mb-4">
-            Try: admin@mpk.gov.my (Super Admin) · ranger.hafiz@mpk.gov.my (Ranger) · visitor@example.com (Visitor)
-          </p>
-
-          {/* Demo Role Login */}
-          <div className="border-t border-gray-100 pt-6">
-            <button
-              onClick={() => setShowDemoPanel(!showDemoPanel)}
-              className="w-full text-sm text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
-            >
-              {showDemoPanel ? 'Hide' : 'Show'} demo role login
-            </button>
-
-            {showDemoPanel && (
-              <div className="mt-4 space-y-2">
-                {(Object.keys(roleConfig) as AppRole[]).map((role) => {
-                  const config = roleConfig[role];
-                  const user = users[role];
-                  return (
-                    <button
-                      key={role}
-                      onClick={() => login(role)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white font-medium transition-all duration-200 ${config.color}`}
-                    >
-                      {config.icon}
-                      <div className="text-left flex-1">
-                        <div className="text-sm font-semibold">{user.name}</div>
-                        <div className="text-xs opacity-80">{config.description}</div>
-                      </div>
-                      <span className="text-xs opacity-60 bg-white/20 px-2 py-1 rounded-lg">
-                        {roleLabels[role]}
-                      </span>
-                    </button>
-                  );
-                })}
+        {view === 'home' && (
+          <>
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Mountain className="w-14 h-14 text-emerald-300" />
               </div>
-            )}
-          </div>
-        </div>
+              <h1 className="text-5xl font-bold text-white mb-3">Smart Gunung Lambak</h1>
+              <p className="text-emerald-200 text-lg max-w-md mx-auto">
+                Smart mountain management platform for hikers, rangers, and park operators.
+              </p>
+            </div>
 
-        {/* Footer */}
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
+              <button
+                onClick={() => setView('login')}
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition-colors mb-3"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => setView('signup')}
+                className="w-full border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-semibold py-3.5 rounded-xl transition-colors"
+              >
+                Sign Up
+              </button>
+            </div>
+          </>
+        )}
+
+        {view === 'login' && (
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Login</h2>
+
+            <div className="space-y-3 mb-5">
+              {socialProviders.map((provider) => {
+                const Icon = provider.icon;
+                return (
+                  <button
+                    key={provider.name}
+                    onClick={socialHandlers[provider.name]}
+                    className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${provider.color}`}
+                  >
+                    <Icon />
+                    Continue with {provider.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-4 my-5">
+              <div className="flex-1 h-px bg-gray-200" />
+              <span className="text-sm text-gray-400">or</span>
+              <div className="flex-1 h-px bg-gray-200" />
+            </div>
+
+            <form onSubmit={handleLogin} className="space-y-4">
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+              />
+              <button
+                type="submit"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors"
+              >
+                Login
+              </button>
+            </form>
+
+            <p className="text-xs text-gray-400 text-center mt-4 mb-2">
+              Try: admin@mpk.gov.my · ranger.hafiz@mpk.gov.my · visitor@example.com
+            </p>
+
+            <p className="text-sm text-center text-gray-500 mt-4">
+              Don&apos;t have an account?{' '}
+              <button onClick={() => setView('signup')} className="text-emerald-600 hover:text-emerald-700 font-medium">
+                Sign Up
+              </button>
+            </p>
+            <button onClick={() => setView('home')} className="w-full text-sm text-gray-400 hover:text-gray-600 mt-3 transition-colors">
+              &larr; Back
+            </button>
+          </div>
+        )}
+
+        {view === 'signup' && (
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Create Account</h2>
+
+            <div className="space-y-3 mb-5">
+              {socialProviders.map((provider) => {
+                const Icon = provider.icon;
+                return (
+                  <button
+                    key={provider.name}
+                    onClick={socialHandlers[provider.name]}
+                    className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${provider.color}`}
+                  >
+                    <Icon />
+                    Sign up with {provider.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center gap-4 my-5">
+              <div className="flex-1 h-px bg-gray-200" />
+              <span className="text-sm text-gray-400">or</span>
+              <div className="flex-1 h-px bg-gray-200" />
+            </div>
+
+            <form onSubmit={handleSignUp} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+              />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+              />
+              <button
+                type="submit"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl transition-colors"
+              >
+                Sign Up
+              </button>
+            </form>
+
+            <p className="text-sm text-center text-gray-500 mt-4">
+              Already have an account?{' '}
+              <button onClick={() => setView('login')} className="text-emerald-600 hover:text-emerald-700 font-medium">
+                Login
+              </button>
+            </p>
+            <button onClick={() => setView('home')} className="w-full text-sm text-gray-400 hover:text-gray-600 mt-3 transition-colors">
+              &larr; Back
+            </button>
+          </div>
+        )}
+
         <p className="text-emerald-300/60 text-xs mt-8">
           Smart Gunung Lambak &copy; 2026 &middot; Built for MPK
         </p>
