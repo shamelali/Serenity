@@ -38,7 +38,7 @@ import { ApiPanel } from './ApiPanel';
 import { SlaPanel } from './SlaPanel';
 import { BudgetPanel } from './BudgetPanel';
 import { Pill } from './ui';
-import { roleLabels, useAuth, type AppRole } from './auth';
+import { roleLabels, roleColors, useAuth, type AppRole } from './auth';
 import { useHikeLog } from '@/lib/hikeLog';
 import { useFamily, type FamilyRelation } from '@/lib/family';
 import { useConsent } from '@/lib/consent';
@@ -195,6 +195,17 @@ export function AppShell() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
   }, [dark]);
+
+  useEffect(() => {
+    if (auth.isLoggedIn && auth.user.role !== 'visitor') {
+      const provider = auth.user.provider;
+      const providerName = provider ? ` via ${provider.charAt(0).toUpperCase() + provider.slice(1)}` : '';
+      toast(
+        `Welcome back, ${auth.user.name.split(' ')[0]}! Logged in as ${roleLabels[auth.user.role]}${providerName}`,
+        `Selamat kembali, ${auth.user.name.split(' ')[0]}! Log masuk sebagai ${roleLabels[auth.user.role]}${providerName}`
+      );
+    }
+  }, [auth.isLoggedIn, auth.user.name, auth.user.role, auth.user.provider, toast]);
 
   const visibleNav = nav.filter((item) => auth.canAccess(item.key));
   const activeView: ViewKey = auth.canAccess(view) ? view : 'visitor';
@@ -410,7 +421,10 @@ export function AppShell() {
             <Pill tone="amber">{label('Car park', 'Parkir')} {data?.carPark.occupied ?? 87}/{data?.carPark.total ?? 120}</Pill>
             <button type="button" onClick={() => setModal({ type: 'login' })} className="rounded-full border border-slate-200 px-3 py-1.5 text-left text-[10px] font-black leading-tight dark:border-forest-500">
               <span className="block">{auth.user.name}</span>
-              <span className="text-brand-600 dark:text-teal-300">{roleLabels[auth.user.role]}{auth.user.mfa ? ' • MFA' : ''}</span>
+              <span className="flex items-center gap-1.5">
+                <span className={`inline-block h-2 w-2 rounded-full ${roleColors[auth.user.role]}`} />
+                <span className="text-brand-600 dark:text-teal-300">{roleLabels[auth.user.role]}{auth.user.mfa ? ' • MFA' : ''}</span>
+              </span>
             </button>
             <button
               type="button"

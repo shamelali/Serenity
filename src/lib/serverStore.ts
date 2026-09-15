@@ -68,6 +68,18 @@ const facilities: Facility[] = [
     iot: true
   },
   {
+    id: 'fac-carpark-2',
+    type: 'car_park',
+    nameEn: 'Overflow Car Park',
+    nameBm: 'Parkir Tambahan',
+    code: 'CP-02',
+    capacity: 50,
+    occupied: 22,
+    priceMyr: 3,
+    status: 'open',
+    iot: true
+  },
+  {
     id: 'fac-chalet',
     type: 'chalet',
     nameEn: 'Family Chalet',
@@ -76,6 +88,19 @@ const facilities: Facility[] = [
     capacity: 10,
     occupied: 6,
     priceMyr: 100,
+    status: 'open',
+    smartLock: true,
+    iot: true
+  },
+  {
+    id: 'fac-chalet-2',
+    type: 'chalet',
+    nameEn: 'Premium Chalet',
+    nameBm: 'Calet Premium',
+    code: 'CH-02',
+    capacity: 5,
+    occupied: 3,
+    priceMyr: 180,
     status: 'open',
     smartLock: true,
     iot: true
@@ -93,6 +118,18 @@ const facilities: Facility[] = [
     iot: true
   },
   {
+    id: 'fac-pool-kids',
+    type: 'pool',
+    nameEn: 'Kids Pool',
+    nameBm: 'Kolam Kanak-kanak',
+    code: 'PL-02',
+    capacity: 30,
+    occupied: 18,
+    priceMyr: 3,
+    status: 'open',
+    iot: true
+  },
+  {
     id: 'fac-bbq',
     type: 'bbq',
     nameEn: 'BBQ Bay',
@@ -104,6 +141,17 @@ const facilities: Facility[] = [
     status: 'open'
   },
   {
+    id: 'fac-bbq-2',
+    type: 'bbq',
+    nameEn: 'BBQ Pavilion',
+    nameBm: 'Pavilion BBQ',
+    code: 'BQ-02',
+    capacity: 10,
+    occupied: 5,
+    priceMyr: 50,
+    status: 'open'
+  },
+  {
     id: 'fac-camping',
     type: 'camping',
     nameEn: 'Camping Ground',
@@ -112,6 +160,17 @@ const facilities: Facility[] = [
     capacity: 20,
     occupied: 12,
     priceMyr: 20,
+    status: 'open'
+  },
+  {
+    id: 'fac-camping-premium',
+    type: 'camping',
+    nameEn: 'Premium Glamping',
+    nameBm: 'Glamping Premium',
+    code: 'CG-02',
+    capacity: 8,
+    occupied: 6,
+    priceMyr: 150,
     status: 'open'
   },
   {
@@ -127,6 +186,18 @@ const facilities: Facility[] = [
     iot: true
   },
   {
+    id: 'fac-toilet-2',
+    type: 'toilet',
+    nameEn: 'Trail Head Toilets',
+    nameBm: 'Tandas Kaki Denai',
+    code: 'TL-02',
+    capacity: 3,
+    occupied: 2,
+    priceMyr: 0,
+    status: 'open',
+    iot: true
+  },
+  {
     id: 'fac-bin',
     type: 'waste_bin',
     nameEn: 'Zone A Smart Bin',
@@ -137,6 +208,29 @@ const facilities: Facility[] = [
     priceMyr: 0,
     status: 'full',
     iot: true
+  },
+  {
+    id: 'fac-bin-b',
+    type: 'waste_bin',
+    nameEn: 'Zone B Smart Bin',
+    nameBm: 'Tong Pintar Zon B',
+    code: 'BN-B1',
+    capacity: 100,
+    occupied: 45,
+    priceMyr: 0,
+    status: 'open',
+    iot: true
+  },
+  {
+    id: 'fac-cafe',
+    type: 'bbq',
+    nameEn: 'Forest Cafe',
+    nameBm: 'Kafe Hutan',
+    code: 'CF-01',
+    capacity: 40,
+    occupied: 28,
+    priceMyr: 0,
+    status: 'open'
   }
 ];
 
@@ -190,18 +284,76 @@ const tasks: RangerTask[] = [
     status: 'completed',
     assignee: 'Operator',
     dueAt: '07:45'
+  },
+  {
+    id: 'task-6',
+    titleEn: 'Restock first aid kit at South Peak',
+    titleBm: 'Isi semula kotak pertolongan cemas di Puncak Selatan',
+    category: 'Safety',
+    priority: 'P2',
+    status: 'open',
+    assignee: 'Ranger Hafiz',
+    dueAt: '11:00'
+  },
+  {
+    id: 'task-7',
+    titleEn: 'Inspect glamping tent #3 before guest check-in',
+    titleBm: 'Periksa khemah glamping #3 sebelum tetamu daftar masuk',
+    category: 'Accommodation',
+    priority: 'P1',
+    status: 'in_progress',
+    assignee: 'Operator',
+    dueAt: '13:00'
+  },
+  {
+    id: 'task-8',
+    titleEn: 'Clear fallen tree branch on North Trail',
+    titleBm: 'Buang dahan pokok tumbang di Denai Utara',
+    category: 'Trail',
+    priority: 'P1',
+    status: 'open',
+    assignee: 'Ranger Siti',
+    dueAt: '10:00'
+  },
+  {
+    id: 'task-9',
+    titleEn: 'Update visitor safety briefing board',
+    titleBm: 'Kemas kini papan taklimat keselamatan pelawat',
+    category: 'Safety',
+    priority: 'P3',
+    status: 'completed',
+    assignee: 'Facility Team',
+    dueAt: '09:00'
+  },
+  {
+    id: 'task-10',
+    titleEn: 'Test emergency radio at all checkpoints',
+    titleBm: 'Uji radio kecemasan di semua checkpoint',
+    category: 'Safety',
+    priority: 'P2',
+    status: 'open',
+    assignee: 'Ranger Hafiz',
+    dueAt: '15:00'
   }
 ];
 
 const iot: IotDevice[] = [
   { id: 'iot-cam-entry', type: 'camera_ai', name: 'Entry Camera AI', status: 'live', metric: 'Detection accuracy', value: '97.4%', quality: 97 },
   { id: 'iot-cam-exit', type: 'camera_ai', name: 'Exit Camera AI', status: 'live', metric: 'Vehicles counted', value: '28 out', quality: 98 },
+  { id: 'iot-cam-trail', type: 'camera_ai', name: 'Trail Head Camera', status: 'live', metric: 'Detection accuracy', value: '96.8%', quality: 96 },
   { id: 'iot-bin-a1', type: 'waste_bin', name: 'Bin A1 Ultrasonic', status: 'warning', metric: 'Fill level', value: '90%', battery: 72, quality: 99 },
   { id: 'iot-bin-b2', type: 'waste_bin', name: 'Bin B2 Ultrasonic', status: 'live', metric: 'Fill level', value: '48%', battery: 84, quality: 99 },
+  { id: 'iot-bin-c1', type: 'waste_bin', name: 'Bin C1 Ultrasonic', status: 'live', metric: 'Fill level', value: '32%', battery: 91, quality: 100 },
   { id: 'iot-toilet-1', type: 'toilet', name: 'Toilet Ammonia Sensor', status: 'warning', metric: 'NH₃ / usage', value: '18 ppm', battery: 64, quality: 96 },
+  { id: 'iot-toilet-2', type: 'toilet', name: 'Trail Head Toilet Sensor', status: 'live', metric: 'NH₃ / usage', value: '8 ppm', battery: 78, quality: 98 },
   { id: 'iot-lock-7', type: 'smart_lock', name: 'Chalet 7 TTLock', status: 'live', metric: 'Battery / QR+PIN', value: '88%', battery: 88, quality: 100 },
+  { id: 'iot-lock-3', type: 'smart_lock', name: 'Chalet 3 TTLock', status: 'live', metric: 'Battery / QR+PIN', value: '92%', battery: 92, quality: 100 },
+  { id: 'iot-lock-12', type: 'smart_lock', name: 'Premium Chalet 12 TTLock', status: 'warning', metric: 'Battery / QR+PIN', value: '45%', battery: 45, quality: 95 },
   { id: 'iot-pool', type: 'pool_sensor', name: 'Pool pH + Headcount', status: 'live', metric: 'pH / occupancy', value: '7.2 / 45', battery: 91, quality: 98 },
-  { id: 'iot-gateway', type: 'gateway', name: '4G/MQTT Gateway', status: 'live', metric: 'Latency', value: '1.8s alert', quality: 99 }
+  { id: 'iot-pool-kids', type: 'pool_sensor', name: 'Kids Pool pH + Headcount', status: 'live', metric: 'pH / occupancy', value: '7.1 / 18', battery: 87, quality: 97 },
+  { id: 'iot-gateway', type: 'gateway', name: '4G/MQTT Gateway', status: 'live', metric: 'Latency', value: '1.8s alert', quality: 99 },
+  { id: 'iot-weather', type: 'gateway', name: 'Weather Station', status: 'live', metric: 'Temp / Humidity', value: '31°C / 78%', battery: 100, quality: 100 },
+  { id: 'iot-gps-1', type: 'gateway', name: 'Ranger GPS Beacon', status: 'live', metric: 'Signal strength', value: '-68 dBm', battery: 65, quality: 94 }
 ];
 
 const incidents: Incident[] = [
@@ -224,6 +376,55 @@ const incidents: Incident[] = [
     titleEn: 'Smart bin above 80% threshold',
     titleBm: 'Tong pintar melebihi ambang 80%',
     zone: 'Base'
+  },
+  {
+    id: 'inc-weather',
+    type: 'safety',
+    severity: 'P2',
+    status: 'open',
+    titleEn: 'Heavy rain warning - flash flood risk on low trails',
+    titleBm: 'Amaran hujan lebat - risiko banjir kilat di denai rendah',
+    zone: 'South Trail'
+  },
+  {
+    id: 'inc-trail-fall',
+    type: 'safety',
+    severity: 'P1',
+    status: 'acknowledged',
+    titleEn: 'Visitor reported slip on North Trail wet rocks',
+    titleBm: 'Pelawat lapor tergelincir di batu basah Denai Utara',
+    zone: 'North Trail',
+    latitude: 2.02715,
+    longitude: 103.34612
+  },
+  {
+    id: 'inc-pool-capacity',
+    type: 'facility',
+    severity: 'P2',
+    status: 'monitoring',
+    titleEn: 'Pool approaching 90% capacity during peak hours',
+    titleBm: 'Kolam menghampiri kapasiti 90% semasa waktu puncak',
+    zone: 'Pool Area'
+  },
+  {
+    id: 'inc-chalet-lock',
+    type: 'facility',
+    severity: 'P2',
+    status: 'acknowledged',
+    titleEn: 'Chalet 12 smart-lock battery below 50% threshold',
+    titleBm: 'Bateri kunci pintar Calet 12 di bawah ambang 50%',
+    zone: 'Chalet Zone'
+  },
+  {
+    id: 'inc-wildlife-b',
+    type: 'wildlife',
+    severity: 'P2',
+    status: 'open',
+    titleEn: 'Monitor lizard spotted near camping ground',
+    titleBm: 'Biawak dilihat berhampiran tapak khemah',
+    zone: 'Camping Zone',
+    latitude: 2.02398,
+    longitude: 103.34521
   }
 ];
 
@@ -233,7 +434,16 @@ const auditLogs = [
   { id: 'audit-3', timestamp: '09:12:14', actor: 'visitor-4821', action: 'Generated family e-ticket', ip: '172.16.8.2', result: 'success' as const },
   { id: 'audit-4', timestamp: '08:58:03', actor: 'finance@mpk.gov.my', action: 'Exported daily settlement CSV', ip: '10.2.4.31', result: 'success' as const },
   { id: 'audit-5', timestamp: '08:44:39', actor: 'unknown-device', action: 'Revoked expired API key', ip: '203.0.113.9', result: 'blocked' as const },
-  { id: 'audit-6', timestamp: '08:02:17', actor: 'system.backup', action: 'Encrypted backup completed', ip: 'internal', result: 'success' as const }
+  { id: 'audit-6', timestamp: '08:02:17', actor: 'system.backup', action: 'Encrypted backup completed', ip: 'internal', result: 'success' as const },
+  { id: 'audit-7', timestamp: '09:45:22', actor: 'operator@mpk.gov.my', action: 'Confirmed Premium Chalet booking', ip: '10.2.4.45', result: 'success' as const },
+  { id: 'audit-8', timestamp: '09:38:15', actor: 'ranger.siti', action: 'Completed trail checkpoint inspection', ip: '10.2.4.82', result: 'success' as const },
+  { id: 'audit-9', timestamp: '09:30:01', actor: 'system.iot', action: 'IoT alert: Bin A1 above 90% threshold', ip: 'internal', result: 'success' as const },
+  { id: 'audit-10', timestamp: '09:22:44', actor: 'visitor-3291', action: 'SOS alert dispatched', ip: '172.16.8.15', result: 'success' as const },
+  { id: 'audit-11', timestamp: '09:15:33', actor: 'admin@mpk.gov.my', action: 'Updated chalet pricing', ip: '10.2.4.10', result: 'success' as const },
+  { id: 'audit-12', timestamp: '09:08:12', actor: 'finance@mpk.gov.my', action: 'Daily revenue summary generated', ip: '10.2.4.31', result: 'success' as const },
+  { id: 'audit-13', timestamp: '09:02:05', actor: 'system.backup', action: 'Incremental backup completed', ip: 'internal', result: 'success' as const },
+  { id: 'audit-14', timestamp: '08:55:28', actor: 'ranger.hafiz', action: 'Started patrol route Alpha', ip: '10.2.4.74', result: 'success' as const },
+  { id: 'audit-15', timestamp: '08:48:41', actor: 'operator@mpk.gov.my', action: 'Pool pH check completed', ip: '10.2.4.45', result: 'success' as const }
 ];
 
 export const visitorTrend = [
@@ -306,6 +516,51 @@ const bookings: Booking[] = [
     smartLockPin: '4821',
     status: 'confirmed',
     createdAt: now
+  },
+  {
+    id: 'book-seed-2',
+    facilityId: 'fac-chalet-2',
+    guestName: 'Ahmad & family',
+    partySize: 3,
+    checkInDate: new Date().toISOString().slice(0, 10),
+    amountMyr: 180,
+    qrRef: 'LAMBAK-9M32X',
+    smartLockPin: '7294',
+    status: 'confirmed',
+    createdAt: new Date(Date.now() - 3600000).toISOString()
+  },
+  {
+    id: 'book-seed-3',
+    facilityId: 'fac-camping-premium',
+    guestName: 'Siti outdoor group',
+    partySize: 6,
+    checkInDate: new Date().toISOString().slice(0, 10),
+    amountMyr: 150,
+    qrRef: 'LAMBAK-2R85K',
+    status: 'confirmed',
+    createdAt: new Date(Date.now() - 7200000).toISOString()
+  },
+  {
+    id: 'book-seed-4',
+    facilityId: 'fac-bbq-2',
+    guestName: 'Lee family reunion',
+    partySize: 8,
+    checkInDate: new Date().toISOString().slice(0, 10),
+    amountMyr: 50,
+    qrRef: 'LAMBAK-4T67P',
+    status: 'confirmed',
+    createdAt: new Date(Date.now() - 1800000).toISOString()
+  },
+  {
+    id: 'book-seed-5',
+    facilityId: 'fac-pool',
+    guestName: 'Fatimah',
+    partySize: 2,
+    checkInDate: new Date().toISOString().slice(0, 10),
+    amountMyr: 5,
+    qrRef: 'LAMBAK-8N12W',
+    status: 'confirmed',
+    createdAt: new Date(Date.now() - 600000).toISOString()
   }
 ];
 
@@ -395,16 +650,23 @@ export function getDashboard(): DashboardSnapshot {
     healthScores.reduce((sum, item) => sum + item.score * (item.weight / 100), 0).toFixed(2)
   );
 
+  const currentHour = new Date().getHours();
+  const isWeekend = [0, 6].includes(new Date().getDay());
+  const weekendMultiplier = isWeekend ? 1.4 : 1;
+  const hourMultiplier = currentHour >= 9 && currentHour <= 16 ? 1.2 : 0.8;
+  const baseVisitors = 342;
+  const dynamicVisitors = Math.round(baseVisitors * weekendMultiplier * hourMultiplier);
+
   return {
     generatedAt: new Date().toISOString(),
     offlineQueue: 50,
     points: store.points,
-    visitorsToday: 342,
-    visitorsOnTrail: 89,
+    visitorsToday: dynamicVisitors,
+    visitorsOnTrail: Math.round(dynamicVisitors * 0.26),
     carPark: { total, occupied, free: total - occupied, accuracy: 97.4 },
     healthIndex,
-    revenueTodayMyr: 2850,
-    forecastMonthMyr: 55000,
+    revenueTodayMyr: Math.round(2850 * weekendMultiplier * hourMultiplier),
+    forecastMonthMyr: Math.round(55000 * weekendMultiplier),
     roiPct: 23.5,
     uptimePct: 99.92,
     facilities: structuredClone(facilities),
