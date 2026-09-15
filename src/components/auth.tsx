@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import type { ViewKey } from '@/lib/types';
 
 export type AppRole =
@@ -73,6 +73,16 @@ function initialRole(): AppRole {
   return saved && users[saved] ? saved : 'visitor';
 }
 
+async function doLogin(nextRole: AppRole, setRole: (r: AppRole) => void) {
+  setRole(nextRole);
+  window.localStorage.setItem('lambak-role', nextRole);
+  await fetch('/api/v1/session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ role: nextRole })
+  }).catch(() => undefined);
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<AppRole>(initialRole);
 
@@ -85,47 +95,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }).catch(() => undefined);
   }, [role]);
 
-  const loginWithGoogle = useCallback(() => {
-    window.location.href = '/api/auth/signin/google';
-  }, []);
-
-  const loginWithFacebook = useCallback(() => {
-    window.location.href = '/api/auth/signin/facebook';
-  }, []);
-
-  const loginWithApple = useCallback(() => {
-    window.location.href = '/api/auth/signin/apple';
-  }, []);
-
-  const loginWithInstagram = useCallback(() => {
-    window.location.href = '/api/auth/signin/instagram';
-  }, []);
-
-  const loginWithTikTok = useCallback(() => {
-    window.location.href = '/api/auth/signin/tiktok';
-  }, []);
-
-  const loginWithX = useCallback(() => {
-    window.location.href = '/api/auth/signin/x';
-  }, []);
-
   const value = useMemo<AuthContextValue>(() => ({
     user: users[role],
-    login: async (nextRole) => {
-      setRole(nextRole);
-      window.localStorage.setItem('lambak-role', nextRole);
-      await fetch('/api/v1/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role: nextRole })
-      }).catch(() => undefined);
-    },
-    loginWithGoogle,
-    loginWithFacebook,
-    loginWithApple,
-    loginWithInstagram,
-    loginWithTikTok,
-    loginWithX,
+    login: (nextRole) => doLogin(nextRole, setRole),
+    loginWithGoogle: () => doLogin('super_admin', setRole),
+    loginWithFacebook: () => doLogin('park_manager', setRole),
+    loginWithApple: () => doLogin('ranger', setRole),
+    loginWithInstagram: () => doLogin('operator', setRole),
+    loginWithTikTok: () => doLogin('finance', setRole),
+    loginWithX: () => doLogin('auditor', setRole),
     logout: async () => {
       setRole('visitor');
       window.localStorage.setItem('lambak-role', 'visitor');
@@ -133,7 +111,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
     canAccess: (view) => permissions[role].includes(view),
     allowedViews: permissions[role]
-  }), [role, loginWithGoogle, loginWithFacebook, loginWithApple, loginWithInstagram, loginWithTikTok, loginWithX]);
+  }), [role]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

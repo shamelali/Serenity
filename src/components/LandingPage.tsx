@@ -1,8 +1,26 @@
 'use client';
 
 import { useAuth, users, type AppRole } from '@/components/auth';
-import { Mountain, Shield, TreePine, Users, BarChart3, Lock, MapPin } from 'lucide-react';
+import { Mountain, Shield, TreePine, Users, BarChart3, Lock, MapPin, Footprints, Radio, Camera, Map } from 'lucide-react';
 import { useState } from 'react';
+
+const features = [
+  { icon: <Footprints className="w-6 h-6" />, title: 'Trail Management', desc: 'Real-time trail conditions, difficulty ratings, and GPS waypoints' },
+  { icon: <Radio className="w-6 h-6" />, title: 'Ranger Ops', desc: 'Live ranger tracking, SOS dispatch, and checkpoint scanning' },
+  { icon: <Users className="w-6 h-6" />, title: 'Visitor Safety', desc: 'Family safe-zone alerts, booking management, and group tracking' },
+  { icon: <Map className="w-6 h-6" />, title: 'Twin Map View', desc: 'Interactive 3D terrain map with live positions and trail overlays' },
+  { icon: <BarChart3 className="w-6 h-6" />, title: 'Analytics Dashboard', desc: 'Visitor stats, revenue tracking, SLA monitoring, and audit logs' },
+  { icon: <Shield className="w-6 h-6" />, title: 'Role-Based Access', desc: 'Super Admin, Park Manager, Ranger, Operator, Finance, Auditor roles' },
+];
+
+const roleMap: Record<string, { role: AppRole; label: string }> = {
+  Google: { role: 'super_admin', label: 'Super Admin' },
+  Apple: { role: 'ranger', label: 'Ranger' },
+  Facebook: { role: 'park_manager', label: 'Park Manager' },
+  Instagram: { role: 'operator', label: 'Chalet Operator' },
+  TikTok: { role: 'finance', label: 'Finance' },
+  X: { role: 'auditor', label: 'Auditor' },
+};
 
 const socialProviders = [
   { name: 'Google', color: 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50', icon: () => (
@@ -24,16 +42,6 @@ const socialProviders = [
     <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
   )},
 ];
-
-const roleConfig: Record<AppRole, { icon: React.ReactNode; color: string; description: string }> = {
-  super_admin: { icon: <Shield className="w-5 h-5" />, color: 'bg-red-500 hover:bg-red-600', description: 'Full system control' },
-  park_manager: { icon: <Mountain className="w-5 h-5" />, color: 'bg-emerald-600 hover:bg-emerald-700', description: 'Park-wide management' },
-  ranger: { icon: <TreePine className="w-5 h-5" />, color: 'bg-green-600 hover:bg-green-700', description: 'Trail & visitor patrol' },
-  operator: { icon: <Users className="w-5 h-5" />, color: 'bg-blue-600 hover:bg-blue-700', description: 'Chalet & booking ops' },
-  finance: { icon: <BarChart3 className="w-5 h-5" />, color: 'bg-amber-600 hover:bg-amber-700', description: 'Revenue & budget' },
-  auditor: { icon: <Lock className="w-5 h-5" />, color: 'bg-slate-600 hover:bg-slate-700', description: 'Read-only audit' },
-  visitor: { icon: <MapPin className="w-5 h-5" />, color: 'bg-teal-600 hover:bg-teal-700', description: 'Browse trails & hike' },
-};
 
 type View = 'home' | 'login' | 'signup';
 
@@ -71,41 +79,60 @@ export function LandingPage() {
       <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12">
 
         {view === 'home' && (
-          <>
+          <div className="w-full max-w-2xl">
+            {/* Hero */}
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Mountain className="w-14 h-14 text-emerald-300" />
               </div>
               <h1 className="text-5xl font-bold text-white mb-3">malim</h1>
-              <p className="text-emerald-200 text-lg max-w-md mx-auto">
-                Smart mountain management platform for hikers, rangers, and park operators.
+              <p className="text-emerald-200 text-lg max-w-lg mx-auto">
+                Smart mountain management platform for hikers, rangers, and park operators. Real-time trail monitoring, visitor safety, and operational dashboards.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center">
-              <button
-                onClick={() => setView('login')}
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition-colors mb-3"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => setView('signup')}
-                className="w-full border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-semibold py-3.5 rounded-xl transition-colors"
-              >
-                Sign Up
-              </button>
+            {/* Features Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+              {features.map((f) => (
+                <div key={f.title} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                  <div className="text-emerald-300 flex justify-center mb-2">{f.icon}</div>
+                  <h3 className="text-white font-semibold text-sm mb-1">{f.title}</h3>
+                  <p className="text-emerald-200/70 text-xs">{f.desc}</p>
+                </div>
+              ))}
             </div>
-          </>
+
+            {/* CTA */}
+            <div className="bg-white rounded-2xl shadow-2xl p-8 text-center">
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Get Started</h2>
+              <p className="text-gray-500 text-sm mb-6">Choose a login method. Each social login demos a different role.</p>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setView('login')}
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition-colors"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setView('signup')}
+                  className="flex-1 border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-semibold py-3.5 rounded-xl transition-colors"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </div>
         )}
 
         {view === 'login' && (
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Login</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-1">Login</h2>
+            <p className="text-xs text-gray-400 text-center mb-6">Each social login demos a different role</p>
 
             <div className="space-y-3 mb-5">
               {socialProviders.map((provider) => {
                 const Icon = provider.icon;
+                const mapped = roleMap[provider.name];
                 return (
                   <button
                     key={provider.name}
@@ -113,7 +140,12 @@ export function LandingPage() {
                     className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${provider.color}`}
                   >
                     <Icon />
-                    Continue with {provider.name}
+                    <span>Continue with {provider.name}</span>
+                    {mapped && (
+                      <span className="ml-auto text-[10px] opacity-60 bg-black/10 px-2 py-0.5 rounded-full">
+                        {mapped.label}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -149,7 +181,7 @@ export function LandingPage() {
             </form>
 
             <p className="text-xs text-gray-400 text-center mt-4 mb-2">
-              Try: admin@mpk.gov.my · ranger.hafiz@mpk.gov.my · visitor@example.com
+              Or use email: admin@mpk.gov.my · ranger.hafiz@mpk.gov.my · visitor@example.com
             </p>
 
             <p className="text-sm text-center text-gray-500 mt-4">
@@ -166,7 +198,8 @@ export function LandingPage() {
 
         {view === 'signup' && (
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Create Account</h2>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-1">Create Account</h2>
+            <p className="text-xs text-gray-400 text-center mb-6">Sign up to start using malim</p>
 
             <div className="space-y-3 mb-5">
               {socialProviders.map((provider) => {
