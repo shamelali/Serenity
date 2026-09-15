@@ -426,22 +426,6 @@ export function AppShell() {
                 <span className="text-brand-600 dark:text-teal-300">{roleLabels[auth.user.role]}{auth.user.mfa ? ' • MFA' : ''}</span>
               </span>
             </button>
-            <button
-              type="button"
-              onClick={async () => {
-                await auth.logout();
-                window.location.href = '/';
-              }}
-              title="Logout"
-              className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 text-slate-500 hover:border-red-400 hover:text-red-600 dark:border-forest-500 dark:text-slate-400 dark:hover:text-red-400 transition"
-            >
-              <LogOut className="h-4 w-4" />
-            </button>
-            {installPrompt && (
-              <button type="button" onClick={installApp} className="btn btn-teal px-3 py-1.5 text-xs">
-                <Download className="h-3.5 w-3.5" /> {label('Install', 'Pasang')}
-              </button>
-            )}
             <button type="button" onClick={() => setLang((value) => (value === 'EN' ? 'BM' : 'EN'))} className="rounded-full border border-brand-600 px-3 py-1.5 text-xs font-black text-brand-600 dark:border-teal-400 dark:text-teal-300">
               <Languages className="mr-1 inline h-3.5 w-3.5" />{lang}
             </button>
@@ -450,6 +434,21 @@ export function AppShell() {
             </button>
             <button type="button" onClick={() => setModal({ type: 'points' })} className="btn btn-primary px-3 py-1.5 text-xs">
               <Sparkles className="h-3.5 w-3.5" />{data?.points ?? 0} pts
+            </button>
+            {installPrompt && (
+              <button type="button" onClick={installApp} className="btn btn-teal px-3 py-1.5 text-xs">
+                <Download className="h-3.5 w-3.5" /> {label('Install', 'Pasang')}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={async () => {
+                await auth.logout();
+                window.location.href = '/';
+              }}
+              className="flex items-center gap-1.5 rounded-full border-2 border-red-300 bg-red-50 px-4 py-1.5 text-xs font-black text-red-600 transition hover:bg-red-100 dark:border-red-400/50 dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-950/60"
+            >
+              <LogOut className="h-4 w-4" /> {label('Sign Out', 'Log Keluar')}
             </button>
           </div>
         </div>

@@ -169,8 +169,12 @@ export function VisitorView() {
             <button type="button" onClick={() => setDark((v) => !v)} className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 dark:border-forest-500">
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
-            <button type="button" onClick={async () => { await auth.logout(); window.location.href = '/'; }} className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 text-slate-400 hover:border-red-400 hover:text-red-500 dark:border-forest-500">
-              <LogOut className="h-4 w-4" />
+            <button
+              type="button"
+              onClick={async () => { await auth.logout(); window.location.href = '/'; }}
+              className="flex items-center gap-1.5 rounded-full border-2 border-red-300 bg-red-50 px-3 py-1 text-[10px] font-black text-red-600 transition hover:bg-red-100 dark:border-red-400/50 dark:bg-red-950/40 dark:text-red-400 dark:hover:bg-red-950/60"
+            >
+              <LogOut className="h-3.5 w-3.5" /> {label('Sign Out', 'Log Keluar')}
             </button>
           </div>
         </div>
