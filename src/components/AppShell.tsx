@@ -636,8 +636,8 @@ export function AppShell() {
                 <h3 className="pr-8 text-sm font-black">{label('Privacy & PDPA consent', 'Privasi & kebenaran PDPA')}</h3>
                 <div className="mt-3 rounded-2xl bg-slate-50 p-4 text-xs font-bold leading-relaxed text-slate-600 dark:bg-forest-900 dark:text-emerald-50/80">
                   {label(
-    'Smart Gunung Lambak collects only the data needed for safety and your visit: booking name/party size/date, optional GPS for safe-zone and SOS response, and device telemetry. Data is encrypted, retained per policy (90-day operational logs), and never sold. You may withdraw consent or request deletion via MPK.',
-    'Smart Gunung Lambak hanya mengumpul data yang diperlukan untuk keselamatan dan lawatan anda: nama/ saiz kumpulan/ tarikh tempahan, GPS pilihan untuk zon selamat dan respons SOS, dan telemetri peranti. Data disulitkan, disimpan mengikut polisi (log operasi 90 hari), dan tidak dijual. Anda boleh tarik balik kebenaran atau minta penghapusan melalui MPK.'
+    'malim collects only the data needed for safety and your visit: booking name/party size/date, optional GPS for safe-zone and SOS response, and device telemetry. Data is encrypted, retained per policy (90-day operational logs), and never sold. You may withdraw consent or request deletion via MPK.',
+    'malim hanya mengumpul data yang diperlukan untuk keselamatan dan lawatan anda: nama/ saiz kumpulan/ tarikh tempahan, GPS pilihan untuk zon selamat dan respons SOS, dan telemetri peranti. Data disulitkan, disimpan mengikut polisi (log operasi 90 hari), dan tidak dijual. Anda boleh tarik balik kebenaran atau minta penghapusan melalui MPK.'
   )}
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -740,8 +740,8 @@ export function AppShell() {
             </div>
             <p className="mt-3 text-xs font-bold leading-relaxed text-slate-600 dark:text-emerald-50/80">
               {label(
-                'To keep you safe, Smart Gunung Lambak uses your booking details and, only with permission, your GPS location for the 50 m family safe-zone and SOS dispatch. Readings and actions are encrypted, logged for 90 days for safety and audit, and never sold. You can withdraw at any time from the Privacy / PDPA link in the footer.',
-                'Untuk keselamatan anda, Smart Gunung Lambak menggunakan butiran tempahan dan, dengan kebenaran, lokasi GPS anda untuk zon selamat keluarga 50 m dan penghantaran SOS. Bacaan dan tindakan disulitkan, direkodkan selama 90 hari untuk keselamatan dan audit, dan tidak dijual. Anda boleh tarik balik bila-bila masa melalui pautan Privasi / PDPA di kaki halaman.'
+                'To keep you safe, malim uses your booking details and, only with permission, your GPS location for the 50 m family safe-zone and SOS dispatch. Readings and actions are encrypted, logged for 90 days for safety and audit, and never sold. You can withdraw at any time from the Privacy / PDPA link in the footer.',
+                'Untuk keselamatan anda, malim menggunakan butiran tempahan dan, dengan kebenaran, lokasi GPS anda untuk zon selamat keluarga 50 m dan penghantaran SOS. Bacaan dan tindakan disulitkan, direkodkan selama 90 hari untuk keselamatan dan audit, dan tidak dijual. Anda boleh tarik balik bila-bila masa melalui pautan Privasi / PDPA di kaki halaman.'
               )}
             </p>
             <div className="mt-5 grid grid-cols-2 gap-2">

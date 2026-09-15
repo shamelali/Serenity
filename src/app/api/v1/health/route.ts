@@ -16,7 +16,7 @@ export async function GET() {
       return NextResponse.json(
         {
           status: 'degraded',
-          service: 'smart-gunung-lambak',
+          service: 'malim',
           time: new Date().toISOString(),
           database,
           error: error instanceof Error ? error.message : 'Database health check failed',
@@ -29,7 +29,7 @@ export async function GET() {
 
   return NextResponse.json({
     status: 'ok',
-    service: 'smart-gunung-lambak',
+    service: 'malim',
     time: new Date().toISOString(),
     database,
     region: 'ap-southeast-1'

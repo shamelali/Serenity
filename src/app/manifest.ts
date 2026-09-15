@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: '/',
-    name: 'Smart Gunung Lambak Pilot',
+    name: 'malim',
     short_name: 'Lambak',
     description: 'Visitor, ranger, command centre and IoT platform for Gunung Lambak.',
     start_url: '/',

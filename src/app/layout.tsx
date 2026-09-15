@@ -3,9 +3,9 @@ import './globals.css';
 import { ServiceWorkerRegistrar } from '@/components/ServiceWorkerRegistrar';
 
 export const metadata: Metadata = {
-  title: 'Smart Gunung Lambak Pilot',
+  title: 'malim',
   description: 'Responsive full-stack visitor, ranger, command centre, admin, IoT and API platform for Gunung Lambak.',
-  applicationName: 'Smart Gunung Lambak',
+  applicationName: 'malim',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

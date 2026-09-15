@@ -1,8 +1,8 @@
 {
-  "name": "smart-gunung-lambak",
+  "name": "malim",
   "version": "1.0.0",
   "private": true,
-  "description": "Full-stack responsive web and installable mobile PWA for Smart Gunung Lambak pilot operations.",
+  "description": "Full-stack responsive web and installable mobile PWA for malim pilot operations.",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",

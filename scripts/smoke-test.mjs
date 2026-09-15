@@ -20,7 +20,7 @@ function check(name, condition, detail = '') {
 }
 
 const health = await request('/api/v1/health');
-check('health endpoint', health.status === 'ok' && health.service === 'smart-gunung-lambak');
+check('health endpoint', health.status === 'ok' && health.service === 'malim');
 
 const dashboard = await request('/api/v1/dashboard');
 check('dashboard aggregates', dashboard.visitorsToday > 0 && Array.isArray(dashboard.facilities) && dashboard.facilities.length >= 7);

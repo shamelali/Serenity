@@ -76,7 +76,7 @@ export function LandingPage() {
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Mountain className="w-14 h-14 text-emerald-300" />
               </div>
-              <h1 className="text-5xl font-bold text-white mb-3">Smart Gunung Lambak</h1>
+              <h1 className="text-5xl font-bold text-white mb-3">malim</h1>
               <p className="text-emerald-200 text-lg max-w-md mx-auto">
                 Smart mountain management platform for hikers, rangers, and park operators.
               </p>
@@ -233,7 +233,7 @@ export function LandingPage() {
         )}
 
         <p className="text-emerald-300/60 text-xs mt-8">
-          Smart Gunung Lambak &copy; 2026 &middot; Built for MPK
+          malim &copy; 2026 &middot; Built for MPK
         </p>
       </div>
     </div>

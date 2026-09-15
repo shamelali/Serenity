@@ -14,7 +14,7 @@ not ranger/admin mutation capabilities.
 
 ## 1. Your mission
 
-Independently verify that Smart Gunung Lambak:
+Independently verify that malim:
 - Maintains a **complete, immutable, searchable and exportable audit trail**.
 - Enforces **least-privilege RBAC** and **MFA** for staff.
 - Meets stated **SLA, backup and disaster-recovery** commitments.

@@ -1,6 +1,6 @@
-# Smart Gunung Lambak — Full-stack Web + Mobile App
+# malim — Full-stack Web + Mobile App
 
-A production-shaped, responsive web and installable mobile application for the **Smart Gunung Lambak Pilot** for MPK Kluang. The project converts the supplied static HTML prototype into a Next.js full-stack product with visitor, ranger, command-centre, admin, API, SLA and budget workflows.
+A production-shaped, responsive web and installable mobile application for the **malim Pilot** for MPK Kluang. The project converts the supplied static HTML prototype into a Next.js full-stack product with visitor, ranger, command-centre, admin, API, SLA and budget workflows.
 
 ## Product modules
 

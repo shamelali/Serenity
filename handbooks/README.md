@@ -1,6 +1,6 @@
-# Smart Gunung Lambak — User Handbook Library
+# malim — User Handbook Library
 
-Welcome to **Smart Gunung Lambak** (MPK Kluang smart-park pilot): a bilingual
+Welcome to **malim** (MPK Kluang smart-park pilot): a bilingual
 (English / Bahasa Melayu) web app and installable mobile PWA for visitors,
 rangers, facility operators, command-centre staff, finance, auditors and
 administrators.

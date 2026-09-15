@@ -11,7 +11,7 @@ tenant-level configuration.
 
 ## 1. Your mission
 
-Operate Smart Gunung Lambak as a **multi-park SaaS service** for MPK Kluang:
+Operate malim as a **multi-park SaaS service** for MPK Kluang:
 provision and configure parks, manage users and least-privilege roles with MFA,
 issue and rotate integration credentials, safeguard the immutable audit trail,
 and own security, backups/DR and production hardening. Great power, full

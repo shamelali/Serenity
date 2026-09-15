@@ -6,7 +6,7 @@ export function GET() {
   return NextResponse.json({
     openapi: '3.1.0',
     info: {
-      title: 'Smart Gunung Lambak API',
+      title: 'malim API',
       version: '1.0.0',
       description: 'Visitor, ranger, IoT, booking, safety and command-centre API for the MPK Kluang pilot.'
     },
