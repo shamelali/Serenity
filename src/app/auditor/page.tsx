@@ -1,5 +1,5 @@
-import { RoleGate } from '@/components/RoleGate';
+import { RolePage } from '@/components/RolePage';
 
 export default function AuditorPage() {
-  return <RoleGate role="auditor" />;
+  return <RolePage role="auditor" />;
 }
