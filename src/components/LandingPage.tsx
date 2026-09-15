@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth, roleLabels, type AppRole } from '@/components/auth';
+import { useRouter } from 'next/navigation';
 import {
   Mountain,
   Shield,
@@ -158,6 +159,7 @@ type View = 'home' | 'logging-in';
 
 export function LandingPage() {
   const { login, logout, user } = useAuth();
+  const router = useRouter();
   const [view, setView] = useState<View>('home');
   const [loggingInProvider, setLoggingInProvider] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -168,14 +170,18 @@ export function LandingPage() {
     }
   }, [user.role]);
 
-  const handleSocialLogin = (provider: SocialProvider) => {
-    setLoggingInProvider(provider.name);
-    setView('logging-in');
+  const roleRoutes: Record<string, string> = {
+    super_admin: '/admin',
+    park_manager: '/park-manager',
+    ranger: '/ranger',
+    operator: '/operator',
+    finance: '/finance',
+    auditor: '/auditor',
+    visitor: '/visitor',
+  };
 
-    // Simulate OAuth delay
-    setTimeout(() => {
-      login(provider.role);
-    }, 1200);
+  const handleSocialLogin = (provider: SocialProvider) => {
+    router.push(roleRoutes[provider.role] || '/');
   };
 
   const handleLogout = () => {
@@ -330,7 +336,7 @@ export function LandingPage() {
         <section className="max-w-6xl mx-auto px-4 pb-12">
           <div className="max-w-3xl mx-auto">
             <button
-              onClick={() => login('visitor')}
+              onClick={() => router.push('/visitor')}
               className="w-full flex items-center justify-center gap-4 bg-emerald-500 hover:bg-emerald-400 text-white font-black text-lg py-5 rounded-2xl transition-all duration-200 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-0.5"
             >
               <Footprints className="w-6 h-6" />
