@@ -15,6 +15,7 @@ import {
   Footprints,
   Gauge,
   Languages,
+  LogOut,
   Moon,
   Mountain,
   Shield,
@@ -410,6 +411,17 @@ export function AppShell() {
             <button type="button" onClick={() => setModal({ type: 'login' })} className="rounded-full border border-slate-200 px-3 py-1.5 text-left text-[10px] font-black leading-tight dark:border-forest-500">
               <span className="block">{auth.user.name}</span>
               <span className="text-brand-600 dark:text-teal-300">{roleLabels[auth.user.role]}{auth.user.mfa ? ' • MFA' : ''}</span>
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                await auth.logout();
+                window.location.href = '/';
+              }}
+              title="Logout"
+              className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 text-slate-500 hover:border-red-400 hover:text-red-600 dark:border-forest-500 dark:text-slate-400 dark:hover:text-red-400 transition"
+            >
+              <LogOut className="h-4 w-4" />
             </button>
             {installPrompt && (
               <button type="button" onClick={installApp} className="btn btn-teal px-3 py-1.5 text-xs">
