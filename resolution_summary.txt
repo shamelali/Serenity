@@ -1,0 +1,23 @@
+ISSUE RESOLVED: The 'Export AppShell doesn't exist in target module' error has been fixed.
+
+Changes made:
+1. Fixed AppShell default export import in src/app/page.tsx:
+   - Changed: import { AppShell } from '@/components/AppShell';
+   - To:      import AppShell from '@/components/AppShell';
+
+2. Added 'use client' directive to src/app/page.tsx to make it a client component
+
+3. Resolved circular import in src/components/auth.tsx:
+   - Removed: import type { DemoUser } from '@/components/auth';
+   - Reason: DemoUser is already defined in the same file
+
+4. Fixed import syntax in src/components/auth.tsx:
+   - Added missing semicolon and proper closure for authService import
+
+5. Verified that all components using hooks are properly marked as client components:
+   - src/app/page.tsx: 'use client';
+   - src/components/LandingPage.tsx: 'use client';
+   - src/components/auth.tsx: 'use client';
+
+The build now progresses past the module export error and successfully compiles JavaScript/TypeScript code.
+Remaining TypeScript errors are separate issues related to component props, not the original export/import problem.
